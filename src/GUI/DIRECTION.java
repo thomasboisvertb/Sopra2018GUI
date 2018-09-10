@@ -1,0 +1,6 @@
+package GUI;
+
+
+    enum DIRECTION {
+        NORTHWEST,NORTHEAST,EAST,SOUTHEAST,SOUTHWEST,WEST;
+    }

@@ -1,0 +1,104 @@
+{ "init": {
+	"width": 4, "height":4,
+	"brains": [
+		{"name": "go", "swarm_id": "A",
+		"instructions": ["move else 0", "jump 0"]
+		},
+		{"name": "feel", "swarm_id": "B",
+		"instructions": ["move else 0", "jump 0"]
+		}
+		],
+	"fields":[
+		{"x": 0, "y": 0, "markers": [], "type": ".", "food": 2},
+		{"x": 1, "y": 0, "markers": [], "type": "A",
+		"ant": {
+        		 "id": 0, "program_counter": 0, "swarm_id" : "A",
+        		 "carries_food": true, "direction": "northwest",
+        		 "rest_time": 0,
+        		 "register": [false,false,false,false,false,false]
+        		 }
+		},
+		{"x": 2, "y": 0, "markers": [], "type": "A",
+		 "ant": {
+         		 "id": 1, "program_counter": 0, "swarm_id" : "A",
+         		 "carries_food": true, "direction": "northwest",
+         		 "rest_time": 0,
+         		 "register": [false,false,false,false,false,false]
+         		 }
+		},
+		{"x": 3, "y": 0, "markers": [], "type": "A",
+		"ant": {
+        		 "id": 2, "program_counter": 0, "swarm_id" : "A",
+        		 "carries_food": false, "direction": "northwest",
+        		 "rest_time": 0,
+        		 "register": [false,false,false,false,false,false]
+        		 }
+		},
+		{"x": 0, "y": 1, "markers": [], "type": ".", "food": 3},
+		{"x": 1, "y": 1, "markers": [], "type": ".", "food": 4},
+		{"x": 2, "y": 1, "markers": [], "type": ".", "food": 6},
+		{"x": 3, "y": 1, "markers": [], "type": ".", "food": 10},
+		{"x": 0, "y": 2, "markers": [], "type": "B", "food": 10,
+		"ant": {
+        		 "id": 3, "program_counter": 0, "swarm_id" : "B",
+        		 "carries_food": false, "direction": "northwest",
+        		 "rest_time": 0,
+        		 "register": [false,false,false,false,false,false]
+        		 }
+        		 },
+		{"x": 1, "y": 2, "markers": [], "type": "B",
+		"ant": {
+        		 "id": 4, "program_counter": 0, "swarm_id" : "B",
+        		 "carries_food": false, "direction": "northwest",
+        		 "rest_time": 0,
+        		 "register": [false,false,false,false,false,false]
+        		 }
+        		 },
+		{"x": 2, "y": 2, "markers": [], "type": "B",
+		"ant": {
+        		 "id": 5, "program_counter": 0, "swarm_id" : "B",
+        		 "carries_food": false, "direction": "northwest",
+        		 "rest_time": 0,
+        		 "register": [false,false,false,false,false,false]
+        		 }
+        		 },
+		{"x": 3, "y": 2, "markers": [], "type": ".", "food": 0},
+		{"x": 0, "y": 3, "markers": [], "type": "#", "food": 0},
+		{"x": 1, "y": 3, "markers": [], "type": ".", "food": 0},
+		{"x": 2, "y": 3, "markers": [], "type": "#", "food": 0},
+		{"x": 3, "y": 3, "markers": [], "type": "=", "food": 0}
+		]
+	},
+
+	"steps": [
+	    {"standings": [
+	            {"swarm_id": "A", "score": 0, "ants": 3},
+	            {"swarm_id": "B", "score": 0, "ants": 3}
+	            ],
+	     "fields": [
+	            {"x": 3, "y": 3, "markers": [], "type": "=", "ant": {
+                    "id": 6, "program_counter": 0, "swarm_id" : "B",
+                    "carries_food": false, "direction": "southeast",
+                    "rest_time": 0,
+                    "register": [false,false,false,false,false,false]
+                    }
+                }
+	            ]
+	    },
+	    {"standings": [
+        	            {"swarm_id": "A", "score": 0, "ants": 3},
+        	            {"swarm_id": "B", "score": 0, "ants": 3}
+        	            ],
+        	     "fields": [
+        	            {"x": 1, "y": 3, "markers": [], "type": ".", "ant": {
+                            "id": 7, "program_counter": 0, "swarm_id" : "B",
+                            "carries_food": true, "direction": "northeast",
+                            "rest_time": 0,
+                            "register": [false,false,false,false,false,false]
+                            }
+                        }
+        	            ]
+        	    }
+	]
+}
+		
