@@ -1,7 +1,6 @@
 package GUI;
 
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -63,9 +62,6 @@ public class Ant {
 
     private void showInfoPopup() {
 
-
-
-
         this.stage.setTitle("ant:"+this.id);
         Label food = new Label("Food :"+this.food);
         Label swarm = new Label("Swarm :"+this.Swarm);
@@ -79,7 +75,6 @@ public class Ant {
         button.setOnAction(e->stage.close());
 
         VBox layout = new VBox();
-        layout.setPadding(new Insets(50));
         layout.setAlignment(Pos.CENTER);
         layout.getChildren().addAll(pc,food,swarm,restTime,registers,button);
 

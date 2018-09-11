@@ -1,5 +1,8 @@
 package GUI;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FieldInfo {
 
     private int x;
@@ -7,6 +10,7 @@ public class FieldInfo {
     private char type;
     private int food;
     private Ant ant;
+    private List markers = new ArrayList<Marker>(2);
 
     public FieldInfo(int x, int y, char type, int food){
         this.x = x;
@@ -41,5 +45,27 @@ public class FieldInfo {
 
     public void setAnt(Ant ant) {
         this.ant = ant;
+    }
+
+    public List getMarkers() {
+        return markers;
+    }
+
+    public void addMarkers(Marker marker) {
+        if (this.markers.isEmpty()){
+            this.markers.add(marker);
+        }
+        else{
+
+        for (Object marks : this.markers){
+            Marker mark = (Marker) marks;
+
+            if (mark.getId() == marker.getId()){
+                this.markers.remove(mark);
+            }
+        }
+        this.markers.add(marker);
+        }
+
     }
 }

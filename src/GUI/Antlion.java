@@ -1,30 +1,29 @@
 package GUI;
 
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+import javafx.stage.Stage;
 
 public class Antlion extends Field {
 
     private ImageView imageView;
+    private Stage stage;
 
 
-    public Antlion(int xCoordinate, int yCoordinate, boolean ant, int food){
+    public Antlion(int xCoordinate, int yCoordinate, boolean ant, int food, Stage stage){
 
 
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
         this.polygon = null;
-
-    }
-
-
-
-    @Override
-    public void SetAnt(boolean isAnt) {
-
-        return;
+        this.stage = stage;
 
     }
 
@@ -50,6 +49,7 @@ public class Antlion extends Field {
         polygon.setFill(Color.CHOCOLATE);
         polygon.setStroke(Color.BLACK);
         polygon.setStrokeWidth(5);
+        polygon.setOnMouseClicked(e -> showInfoPopup());
 
         this.polygon = polygon;
 
@@ -60,11 +60,28 @@ public class Antlion extends Field {
         imageview.setImage(antlion);
 
         imageview.setPreserveRatio(true);
+        imageview.setOnMouseClicked(e -> showInfoPopup());
 
         this.imageView = imageview;
     }
 
     public ImageView getAntlion(){
         return imageView;
+    }
+
+    private void showInfoPopup() {
+
+        this.stage.setTitle("Type : Antlion");
+
+        Button button = new Button("Close");
+        button.setOnAction(e -> stage.close());
+        Label coordinate = new Label("x : " + this.xCoordinate + " y : " + this.yCoordinate);
+        VBox layout = new VBox();
+        layout.setAlignment(Pos.CENTER);
+        layout.getChildren().addAll(coordinate,button);
+        Scene scene = new Scene(layout);
+
+        stage.setScene(scene);
+        stage.show();
     }
 }

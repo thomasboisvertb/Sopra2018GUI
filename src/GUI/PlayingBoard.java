@@ -3,6 +3,7 @@ package GUI;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 import static java.lang.Math.sqrt;
 
@@ -12,10 +13,12 @@ public class PlayingBoard {
     private Group playingBoard = new Group();
     private GridPane root;
     private Field[][] board;
+    private Stage fieldWindow;
 
 
-    public PlayingBoard(double side, int width, int height, FieldInfo[][] fieldInfo) {
+    public PlayingBoard(double side, int width, int height, FieldInfo[][] fieldInfo, Stage fieldWindow) {
 
+        this.fieldWindow = fieldWindow;
     this.board = new Field[width][height];
     GridPane root = new GridPane();
     root.setPadding(new Insets(10,10,10,10));
@@ -40,21 +43,21 @@ public class PlayingBoard {
 
                 // field is a base
                 if (type -'A' >= 0 && type-'A' <=26) {
-                    field = new Base(x,y,false,food,type);
+                    field = new Base(x,y,false,food,type,this.fieldWindow,null);
                     field.setField(i * getH(side) * 2 + getH(side), j * side * 1.5 + side * 2, side);
                     playingBoard.getChildren().add(field.polygon);
                 }
 
                 // field is a plain
                 else if ('.'-type == 0){
-                    field = new Plain(x,y,false,food);
+                    field = new Plain(x,y,false,food,this.fieldWindow);
                     field.setField(i * getH(side) * 2 + getH(side), j * side * 1.5 + side * 2, side);
                     playingBoard.getChildren().add(field.polygon);
                 }
 
                 //field is a rock
                 else if ('#'-type == 0){
-                    field = new Rock(x, y, false, food);
+                    field = new Rock(x, y, false, food,this.fieldWindow);
                     field.setField(i * getH(side) * 2 + getH(side) * 2, j * side * 1.5 + side * 2, side);
                     ((Rock)field).getRock().setX(field.xPosition - side / 0.65);
                     ((Rock)field).getRock().setY(field.yPosition - side / 0.90);
@@ -64,7 +67,7 @@ public class PlayingBoard {
 
                 //field is an antlion
                 else{
-                    field = new Antlion(x,y,false,food);
+                    field = new Antlion(x,y,false,food,this.fieldWindow);
                     field.setField(i * getH(side) * 2 + getH(side) * 2, j * side * 1.5 + side * 2, side);
                     ((Antlion)field).getAntlion().setX(field.xPosition - side / 1.3);
                     ((Antlion)field).getAntlion().setY(field.yPosition - side / 1.7);
@@ -81,21 +84,21 @@ public class PlayingBoard {
 
                 // field is a base
                 if (type - 'A' >= 0 &&  type - 'A' <= 26) {
-                    field = new Base(x, y, false, food,type);
+                    field = new Base(x, y, false, food,type,this.fieldWindow,null);
                     field.setField(i * getH(side) * 2 + getH(side) * 2, j * side * 1.5 + side * 2, side);
                     playingBoard.getChildren().add(field.polygon);
                 }
 
                 // field is a plain
                 else if ('.' - type == 0) {
-                    field = new Plain(x, y, false, food);
+                    field = new Plain(x, y, false, food,this.fieldWindow);
                     field.setField(i * getH(side) * 2 + getH(side) * 2, j * side * 1.5 + side * 2, side);
                     playingBoard.getChildren().add(field.polygon);
                 }
 
                 //field is a rock
                 else if ('#' - type == 0) {
-                    field = new Rock(x, y, false, food);
+                    field = new Rock(x, y, false, food,this.fieldWindow);
                     field.setField(i * getH(side) * 2 + getH(side) * 2, j * side * 1.5 + side * 2, side);
                     ((Rock)field).getRock().setX(field.xPosition - side / 0.65);
                     ((Rock)field).getRock().setY(field.yPosition - side / 0.90);
@@ -105,7 +108,7 @@ public class PlayingBoard {
 
                 //field is an antlion
                 else {
-                    field = new Antlion(x, y, false, food);
+                    field = new Antlion(x, y, false, food,this.fieldWindow);
                     field.setField(i * getH(side) * 2 + getH(side) * 2, j * side * 1.5 + side * 2, side);
                     ((Antlion)field).getAntlion().setX(field.xPosition - side / 1.3);
                     ((Antlion)field).getAntlion().setY(field.yPosition - side / 1.7);

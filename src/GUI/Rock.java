@@ -1,25 +1,28 @@
 package GUI;
 
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+import javafx.stage.Stage;
 
 public class Rock extends Field {
 
     ImageView imageView;
+    private Stage stage;
 
 
-    public Rock(int xCoordinate, int yCoordinate, boolean ant, int food){
+    public Rock(int xCoordinate, int yCoordinate, boolean ant, int food, Stage stage){
+        this.stage = stage;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
 
         this.polygon = null;
-    }
-    @Override
-    public void SetAnt(boolean isAnt) {
-        return;
-
     }
 
     @Override
@@ -43,6 +46,7 @@ public class Rock extends Field {
         polygon.setFill(Color.DARKGRAY);
         polygon.setStroke(Color.BLACK);
         polygon.setStrokeWidth(5);
+        polygon.setOnMouseClicked(e -> showInfoPopup());
 
         this.polygon = polygon;
 
@@ -52,6 +56,7 @@ public class Rock extends Field {
         ImageView imageview = new ImageView();
 
         imageview.setImage(rock);
+        imageview.setOnMouseClicked(e -> showInfoPopup());
 
         this.imageView = imageview;
     }
@@ -59,5 +64,21 @@ public class Rock extends Field {
     public ImageView getRock(){
         return imageView;
 
+    }
+
+    private void showInfoPopup() {
+
+        this.stage.setTitle("Type : Rock");
+
+        Button button = new Button("Close");
+        button.setOnAction(e -> stage.close());
+        Label coordinate = new Label("x : " + this.xCoordinate + " y : " + this.yCoordinate);
+        VBox layout = new VBox();
+        layout.setAlignment(Pos.CENTER);
+        layout.getChildren().addAll(coordinate,button);
+        Scene scene = new Scene(layout);
+
+        stage.setScene(scene);
+        stage.show();
     }
 }

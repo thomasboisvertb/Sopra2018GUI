@@ -90,8 +90,8 @@
         	            {"swarm_id": "B", "score": 0, "ants": 3}
         	            ],
         	     "fields": [
-        	            {"x": 1, "y": 3, "markers": [], "type": ".", "ant": {
-                            "id": 7, "program_counter": 0, "swarm_id" : "B",
+        	            {"x": 1, "y": 3, "markers": [{"swarm_id" : "B", "values" : [false,true,false,false,false,false,true]}], "type": ".", "ant": {
+                            "id": 7, "program_counter": 8, "swarm_id" : "B",
                             "carries_food": true, "direction": "northeast",
                             "rest_time": 0,
                             "register": [false,false,false,false,false,false]

@@ -2,6 +2,9 @@ package GUI;
 
 import javafx.scene.shape.Polygon;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Field {
 
     // coordinate values on the actual playing board
@@ -15,31 +18,18 @@ public abstract class Field {
 
     protected Polygon polygon;
 
+    protected List markers = new ArrayList<Marker>(2);
 
-    public abstract void SetAnt(boolean isAnt);
+    protected int food;
+
+    public void setMarkers(List<Marker> markers){
+        this.markers = markers;
+    }
 
     public abstract void setFood(int food);
 
-    public Polygon getPolygon() {
-        return this.polygon;
-    }
-
-    public int getxCoordinate() {
-        return xCoordinate;
-    }
-
-    public int getyCoordinate() {
-        return yCoordinate;
-    }
-
-    public double getxPosition() {
-        return xPosition;
-    }
-
-    public double getyPosition() {
-        return yPosition;
-    }
-
     public abstract void setField (double xPosition, double yPosition, double side);
+
+
 
 }

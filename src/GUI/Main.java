@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,6 +19,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.json.simple.parser.ParseException;
@@ -53,17 +55,36 @@ public class Main extends Application{
     private FieldInfo[][] fieldInfos;
     private FieldInfo[][] originalFI;
     private List ants = new ArrayList<ImageView>();
+    private List foods = new ArrayList<ImageView>();
     private Stage antInfo;
+    private Stage fieldInfo;
 
     @Override
     public void start(Stage primaryStage){
 
+
+        //creating the window to show the info on the ants
         antInfo = new Stage();
         antInfo.setTitle("id :  ");
-        //antInfo.setMinHeight(300);
-        //antInfo.setMinWidth(250);
-        antInfo.setIconified(true);
         antInfo.setAlwaysOnTop(true);
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+
+//set Stage boundaries to the lower right corner of the visible bounds of the main screen
+        antInfo.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth()/20);
+        antInfo.setY(primaryScreenBounds.getMinY() + primaryScreenBounds.getHeight()/20);
+        antInfo.setWidth(400);
+        antInfo.setHeight(250);
+
+        //crrating the window to show the info on the fields
+        fieldInfo = new Stage();
+        fieldInfo.setTitle("type : ");
+        fieldInfo.setAlwaysOnTop(true);
+
+        fieldInfo.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth()/20);
+        fieldInfo.setY(primaryScreenBounds.getMinY() + primaryScreenBounds.getHeight()/2);
+        fieldInfo.setWidth(400);
+        fieldInfo.setHeight(250);
+
 
         primaryStage.setTitle("Sopra 2018");
 
@@ -110,7 +131,7 @@ public class Main extends Application{
             }
             else {
                 //building playing board
-                this.playingBoard = new PlayingBoard(side, width, height, parser.getBoard());
+                this.playingBoard = new PlayingBoard(side, width, height, parser.getBoard(),this.fieldInfo);
 
                 //initializing the two FieldInfo arrays
                 originalFI = new FieldInfo[width][height];
@@ -125,7 +146,7 @@ public class Main extends Application{
                 playingBoard.getBoard().getChildren().addAll(control,autocontrol, closeButton,RoundInputLayout);
                 Scene mainScene = new Scene(playingBoard.getBoard());
 
-                setAnts(fieldInfos, playingBoard);
+                setBoard(fieldInfos, playingBoard);
                 primaryStage.setScene(mainScene);
                 primaryStage.centerOnScreen();
             }});
@@ -142,7 +163,7 @@ public class Main extends Application{
                             if (presentRound==maxRound-1) timeline.stop();
                             calculateNextRound(((ArrayList<Round>) parser.getRounds()).get(this.presentRound), fieldInfos);
                             presentRound++;
-                            setAnts(fieldInfos, playingBoard);
+                            setBoard(fieldInfos, playingBoard);
 
 
                         }));
@@ -234,7 +255,7 @@ public class Main extends Application{
 
                         chooseRound(parser.getRounds(), fieldInfos, index);
                         presentRound = index;
-                        setAnts(fieldInfos, playingBoard);
+                        setBoard(fieldInfos, playingBoard);
                     }
                     else {
                         Alert alert = new Alert();
@@ -260,7 +281,7 @@ public class Main extends Application{
 
                 chooseRound((ArrayList<Round>) parser.getRounds(), fieldInfos, index);
                 presentRound = index;
-                setAnts(fieldInfos, playingBoard);
+                setBoard(fieldInfos, playingBoard);
             }
             else {
                 Alert alert = new Alert();
@@ -285,7 +306,7 @@ public class Main extends Application{
         backward.setOnAction(e -> {
             if (presentRound >0){
                 backward(parser.getRounds(),fieldInfos);
-                setAnts(fieldInfos,playingBoard);
+                setBoard(fieldInfos,playingBoard);
             }
             else {
                 Alert alert = new Alert();
@@ -299,7 +320,7 @@ public class Main extends Application{
                             if (presentRound < maxRound) {
                         calculateNextRound(((ArrayList<Round>)parser.getRounds()).get(this.presentRound),fieldInfos);
                         presentRound++;
-                            setAnts(fieldInfos,playingBoard); }
+                            setBoard(fieldInfos,playingBoard); }
                             else {
                                 Alert alert = new Alert();
                                 alert.display("","No more rounds\n    to display!");
@@ -326,6 +347,15 @@ public class Main extends Application{
         this.ants.clear();
     }
 
+    private void removefoods(Group gridPane){
+        for (Object foods : this.foods){
+            ImageView food = (ImageView)foods;
+            gridPane.getChildren().remove(food);
+
+        }
+        this.foods.clear();
+    }
+
 
     public void calculateNextRound(Round round, FieldInfo[][] fieldInfo){
 
@@ -340,12 +370,17 @@ public class Main extends Application{
     }
 
 
-        private void setAnts (FieldInfo[][] fieldInfos, PlayingBoard playingBoard){
+        private void setBoard (FieldInfo[][] fieldInfos, PlayingBoard playingBoard){
 
        removeAnts(playingBoard.getPlayingBoard());
+       removefoods(playingBoard.getPlayingBoard());
 
             for (int j = 0 ; j < height ; j++){
                 for (int i = 0 ; i < width ; i++) {
+
+                    Field temp = playingBoard.getField(i,j);
+                    temp.setFood(fieldInfos[i][j].getFood());
+                    temp.setMarkers(fieldInfos[i][j].getMarkers());
 
 
                     if (fieldInfos[i][j].getAnt()!=null) {
@@ -363,6 +398,7 @@ public class Main extends Application{
 
                     if (food>0){
                         Food burger = new Food(this.side,i,j,playingBoard.getField(i,j).xPosition,playingBoard.getField(i,j).yPosition,food);
+                        this.foods.add(burger.getImageView());
                         playingBoard.getPlayingBoard().getChildren().add(burger.getImageView());
 
                     }

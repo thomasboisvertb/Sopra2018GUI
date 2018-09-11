@@ -104,7 +104,7 @@ public class JsonReader {
             JSONArray fieldsArray = (JSONArray) step.get("fields");
             //getting the size of the array for initialisation
 
-
+            //getting the standing
             for (Object standings : standingArray) {
                 JSONObject standing = (JSONObject) standings;
 
@@ -117,7 +117,7 @@ public class JsonReader {
 
             }
 
-
+            //getting the rounds
             for (Object fields : fieldsArray) {
                 JSONObject fieldR = (JSONObject) fields;
 
@@ -125,15 +125,41 @@ public class JsonReader {
                 int y = toIntExact((long) fieldR.get("y"));
                 char type = ((String) fieldR.get("type")).charAt(0);
 
-                // there is no food value if there is an ant on the field
+
+                //default values for food and ant
                 int food = 0;
                 Ant ant = null;
 
                 //initialising fieldInfo
                 FieldInfo fieldI = new FieldInfo(x, y, type, food);
 
+                //getting the markers
+                JSONArray markersArray = (JSONArray) fieldR.get("markers");
+
+                for (Object markers : markersArray) {
+                    JSONObject marker = (JSONObject) markers;
+
+                    //getting the marker id
+                    char id = ((String) marker.get("swarm_id")).charAt(0);
+                    //getting the marker array
+                    boolean[] values = new boolean[7];
+                    JSONArray registers = (JSONArray) marker.get("values");
+                    for (int i = 0; i<registers.size();i++) {
+                        boolean value = ("true".equals(registers.get(i).toString()));
+                        values[i] = value;
+                    }
+
+                    Marker finalMarker = new Marker(id,values);
+
+                    fieldI.addMarkers(finalMarker);
+
+                }
+
                 if (fieldR.get("food") != null) {
                     food = toIntExact((long) fieldR.get("food"));
+                    fieldI.setFood(food);
+                }
+                else {
                     fieldI.setFood(food);
                 }
 
