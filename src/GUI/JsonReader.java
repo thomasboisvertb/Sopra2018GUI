@@ -213,7 +213,6 @@ public class JsonReader {
     }
 
     public double calculateSide (int width, int height){
-        return //40-0.85*height+0.005*height*width;
-        Math.sqrt(height*1200);
+        return 40-0.85*height+0.005*height*width;
     }
 }

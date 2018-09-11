@@ -58,7 +58,7 @@ public class PlayingBoard {
                 //field is a rock
                 else if ('#'-type == 0){
                     field = new Rock(x, y, false, food,this.fieldWindow);
-                    field.setField(i * getH(side) * 2 + getH(side) * 2, j * side * 1.5 + side * 2, side);
+                    field.setField(i * getH(side) * 2 + getH(side), j * side * 1.5 + side * 2, side);
                     ((Rock)field).getRock().setX(field.xPosition - side / 0.65);
                     ((Rock)field).getRock().setY(field.yPosition - side / 0.90);
                     playingBoard.getChildren().add(field.polygon);
@@ -68,7 +68,7 @@ public class PlayingBoard {
                 //field is an antlion
                 else{
                     field = new Antlion(x,y,false,food,this.fieldWindow);
-                    field.setField(i * getH(side) * 2 + getH(side) * 2, j * side * 1.5 + side * 2, side);
+                    field.setField(i * getH(side) * 2 + getH(side), j * side * 1.5 + side * 2, side);
                     ((Antlion)field).getAntlion().setX(field.xPosition - side / 1.3);
                     ((Antlion)field).getAntlion().setY(field.yPosition - side / 1.7);
                     playingBoard.getChildren().add(field.polygon);
