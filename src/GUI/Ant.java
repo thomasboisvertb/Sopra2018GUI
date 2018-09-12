@@ -94,23 +94,23 @@ public class Ant {
 
         if (this.food) {
             try {
-                ant = new Image("/Ressources/ant" + Character.toString(Swarm) + "food.png", this.side * 1.2, this.side * 1.2, true, true);
+                ant = new Image("/Ressources/ant" + Character.toString(Swarm) + "foods.png", this.side * 1.2, this.side * 1.2, true, true);
             } catch ( NullPointerException e) {
-                ant = new Image("/Ressources/antG.png", this.side * 1.2, this.side * 1.2, true, true);
+                ant = new Image("/Ressources/antGfoods.png", this.side * 1.2, this.side * 1.2, true, true);
             }
             catch ( IllegalArgumentException e) {
-                ant = new Image("/Ressources/antG.png", this.side * 1.2, this.side * 1.2, true, true);
+                ant = new Image("/Ressources/antGfoods.png", this.side * 1.2, this.side * 1.2, true, true);
             }
 
         }
         else {
             try {
-                ant = new Image("/Ressources/ant" + Character.toString(Swarm) + ".png", this.side * 1.2, this.side * 1.2, true, true);
+                ant = new Image("/Ressources/ant" + Character.toString(Swarm) + "s.png", this.side * 1.2, this.side * 1.2, true, true);
             } catch ( NullPointerException e) {
-                ant = new Image("/Ressources/antG.png", this.side * 1.2, this.side * 1.2, true, true);
+                ant = new Image("/Ressources/antGs.png", this.side * 1.2, this.side * 1.2, true, true);
             }
             catch ( IllegalArgumentException e) {
-                ant = new Image("/Ressources/antG.png", this.side * 1.2, this.side * 1.2, true, true);
+                ant = new Image("/Ressources/antGs.png", this.side * 1.2, this.side * 1.2, true, true);
             }
         }
 

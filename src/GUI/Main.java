@@ -169,7 +169,7 @@ public class Main extends Application{
         autoplay.setOnAction(e-> {
             if (presentRound < maxRound) {
                 timeline = new Timeline(new KeyFrame(
-                        Duration.millis(600),
+                        Duration.millis(450),
                         ae -> {
                             if (presentRound==maxRound-1) timeline.stop();
                             calculateNextRound(((ArrayList<Round>) parser.getRounds()).get(this.presentRound), fieldInfos);
