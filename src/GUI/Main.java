@@ -77,7 +77,7 @@ public class Main extends Application{
         antInfo.setWidth(400);
         antInfo.setHeight(250);
 
-        //crrating the window to show the info on the fields
+        //creating the window to show the info on the fields
         fieldInfo = new Stage();
         fieldInfo.setTitle("type : ");
         fieldInfo.setAlwaysOnTop(true);
