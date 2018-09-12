@@ -99,7 +99,6 @@ public class JsonReader {
             JSONArray standingArray = (JSONArray) step.get("standings");
             //getting the size of the array for initialisation
 
-
             // getting the field array
             JSONArray fieldsArray = (JSONArray) step.get("fields");
             //getting the size of the array for initialisation

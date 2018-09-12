@@ -20,4 +20,7 @@ public class Round {
     public void addFieldInfos(FieldInfo fieldInfo) {
         this.fieldInfos.add(fieldInfo);
     }
+
+    public void addStandings(Standing standing){this.standings.add(standing);}
+
 }

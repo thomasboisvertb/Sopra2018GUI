@@ -3,6 +3,8 @@ package GUI;
 public class Standing {
 
     char swarm_id;
+    int score;
+    int ants;
 
     public char getSwarm_id() {
         return swarm_id;
@@ -28,8 +30,7 @@ public class Standing {
         this.ants = ants;
     }
 
-    int score;
-    int ants;
+
 
 
 }

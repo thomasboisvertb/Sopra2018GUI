@@ -39,8 +39,10 @@ public class Main extends Application{
     private Button autoplay;
     private Button stop;
     private VBox RoundInputLayout;
+    private List <Label> scoreInput;
     private VBox control;
     private VBox autocontrol;
+    private HBox score;
     private TextField roundInput;
 
     private int presentRound;
@@ -141,9 +143,18 @@ public class Main extends Application{
                 for (int i = 0; i < width; i++) {
                     System.arraycopy(fieldInfos[i], 0, originalFI[i], 0, height);
                 }
+                    // setting up socre board
+                Round tempRound = (Round) parser.getRounds().get(0);
+                scoreInput = new ArrayList<>();
+                for (Object standings : tempRound.getStandings()) {
+                    Standing standing = (Standing) standings;
+                    Label swarme = new Label("Swarm "+standing.getSwarm_id()+": "+standing.getScore()+"/"+standing.getAnts()+" ");
+                    score.getChildren().add(swarme);
+                    scoreInput.add(swarme);
+                }
 
                 //board scene setup and ant setup
-                playingBoard.getBoard().getChildren().addAll(control,autocontrol, closeButton,RoundInputLayout);
+                playingBoard.getBoard().getChildren().addAll(score,control,autocontrol, closeButton,RoundInputLayout);
                 Scene mainScene = new Scene(playingBoard.getBoard());
 
                 setBoard(fieldInfos, playingBoard);
@@ -222,6 +233,10 @@ public class Main extends Application{
         autocontrol = new VBox();
         GridPane.setConstraints(autocontrol,0,0);
         autocontrol.getChildren().addAll(autoplay,stop);
+
+        score = new HBox();
+        score.setAlignment(Pos.CENTER);
+        GridPane.setConstraints(score,1,0);
 
 
         forward = new Button("Forward");
@@ -402,10 +417,20 @@ public class Main extends Application{
                         playingBoard.getPlayingBoard().getChildren().add(burger.getImageView());
 
                     }
+
                 }
             }
             roundInput.setText(""+presentRound);
             roundInput.positionCaret(presentRound+1);
+
+            Round rounds= (Round )this.parser.getRounds().get(presentRound);
+            int index = 0;
+            for (Object labels : scoreInput){
+                Standing standing = (Standing) rounds.getStandings().get(index);
+                Label label = (Label) labels;
+                label.setText("Swarm "+standing.getSwarm_id()+": "+standing.getScore()+"/"+standing.getAnts()+" ");
+                index++;
+            }
 
         }
 
