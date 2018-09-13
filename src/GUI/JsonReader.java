@@ -219,7 +219,7 @@ public class JsonReader {
         double maxHeight = primaryScreenBounds.getHeight();
         double maxWidth = primaryScreenBounds.getWidth();
 
-        return Math.min((maxHeight-200)/height,(maxWidth-200)/width);
+        return Math.min((maxHeight-250)/height,(maxWidth-250)/width);
 
 
     }
