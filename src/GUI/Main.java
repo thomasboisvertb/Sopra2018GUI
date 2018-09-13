@@ -423,7 +423,7 @@ public class Main extends Application{
             roundInput.setText(""+presentRound);
             roundInput.positionCaret(presentRound+1);
 
-            Round rounds= (Round )this.parser.getRounds().get(presentRound);
+            Round rounds= (Round )this.parser.getRounds().get(presentRound-1);
             int index = 0;
             for (Object labels : scoreInput){
                 Standing standing = (Standing) rounds.getStandings().get(index);
