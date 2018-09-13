@@ -1,5 +1,7 @@
 package GUI;
 
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -212,6 +214,13 @@ public class JsonReader {
     }
 
     public double calculateSide (int width, int height){
-        return 40-0.85*height+0.005*height*width;
+        //40-0.85*height+0.005*height*width; -> old value
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        double maxHeight = primaryScreenBounds.getHeight();
+        double maxWidth = primaryScreenBounds.getWidth();
+
+        return Math.min((maxHeight-200)/height,(maxWidth-200)/width);
+
+
     }
 }
