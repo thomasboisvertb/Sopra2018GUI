@@ -43,6 +43,7 @@ public class Main extends Application{
     private VBox control;
     private VBox autocontrol;
     private HBox score;
+    private VBox close;
     private TextField roundInput;
 
     private int presentRound;
@@ -154,7 +155,7 @@ public class Main extends Application{
                 }
 
                 //board scene setup and ant setup
-                playingBoard.getBoard().getChildren().addAll(score,control,autocontrol, closeButton,RoundInputLayout);
+                playingBoard.getBoard().getChildren().addAll(score,control,autocontrol, close,RoundInputLayout);
                 Scene mainScene = new Scene(playingBoard.getBoard());
 
                 setBoard(fieldInfos, playingBoard);
@@ -307,15 +308,18 @@ public class Main extends Application{
 
         RoundInputLayout = new VBox();
         RoundInputLayout.getChildren().addAll(setRound,roundInput);
-        gridPane.setConstraints(RoundInputLayout,0,2);
+        gridPane.setConstraints(RoundInputLayout,0,1);
 
 
 
 
+        close = new VBox();
+        GridPane.setConstraints(close,2,1);
 
         closeButton = new Button("Close");
         closeButton.setPrefSize(100,30);
-        GridPane.setConstraints(closeButton,2,2);
+        close.getChildren().add(closeButton);
+
 
 
         backward.setOnAction(e -> {
@@ -423,7 +427,7 @@ public class Main extends Application{
             roundInput.setText(""+presentRound);
             roundInput.positionCaret(presentRound+1);
 
-            Round rounds= (Round )this.parser.getRounds().get(presentRound-1);
+            Round rounds= (Round )this.parser.getRounds().get(presentRound-(presentRound==0?0:1));
             int index = 0;
             for (Object labels : scoreInput){
                 Standing standing = (Standing) rounds.getStandings().get(index);
