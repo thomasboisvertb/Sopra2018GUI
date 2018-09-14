@@ -12,6 +12,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -38,6 +39,8 @@ public class Main extends Application{
     private Button forward;
     private Button autoplay;
     private Button stop;
+    private Slider slider;
+    private int autoplayValue;
     private VBox RoundInputLayout;
     private List <Label> scoreInput;
     private VBox control;
@@ -165,16 +168,36 @@ public class Main extends Application{
 
 
 
+        slider = new Slider();
+        slider.setMin(1);
+        slider.setMax(15);
+        slider.setValue(1);
+        slider.setShowTickLabels(true);
+        slider.setShowTickMarks(true);
+        slider.setMajorTickUnit(5);
+        slider.setMinorTickCount(1);
+        slider.setBlockIncrement(2);
+        slider.setMaxWidth(100);
+        autoplayValue = (int)slider.getValue();
 
-        autoplay = new Button("Autoplay");
+        slider.valueProperty().addListener(e->{
+
+                autoplayValue = (int) slider.getValue();
+                autoplay.setText("Play "+(int)autoplayValue+"x");
+        });
+
+
+
+        autoplay = new Button("Play "+autoplayValue+"x");
         autoplay.setOnAction(e-> {
             if (presentRound < maxRound) {
                 timeline = new Timeline(new KeyFrame(
                         Duration.millis(450),
                         ae -> {
+                            for (int i = 0; i<autoplayValue; i++){
                             if (presentRound==maxRound-1) timeline.stop();
                             calculateNextRound(((ArrayList<Round>) parser.getRounds()).get(this.presentRound), fieldInfos);
-                            presentRound++;
+                            presentRound++;}
                             setBoard(fieldInfos, playingBoard);
 
 
@@ -184,6 +207,7 @@ public class Main extends Application{
             }
                 }
         );
+
 
         stop = new Button("Stop");
 
@@ -232,8 +256,8 @@ public class Main extends Application{
         stop.setPrefSize(100,30);
         autoplay.setPrefSize(100,30);
         autocontrol = new VBox();
-        GridPane.setConstraints(autocontrol,0,0);
-        autocontrol.getChildren().addAll(autoplay,stop);
+        GridPane.setConstraints(autocontrol,0,1);
+        autocontrol.getChildren().addAll(autoplay,slider,stop);
 
         score = new HBox();
         score.setAlignment(Pos.CENTER);
@@ -308,7 +332,7 @@ public class Main extends Application{
 
         RoundInputLayout = new VBox();
         RoundInputLayout.getChildren().addAll(setRound,roundInput);
-        gridPane.setConstraints(RoundInputLayout,0,1);
+        gridPane.setConstraints(RoundInputLayout,0,0);
 
 
 
