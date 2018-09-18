@@ -174,7 +174,7 @@ public class Main extends Application{
         slider.setValue(1);
         slider.setShowTickLabels(true);
         slider.setShowTickMarks(true);
-        slider.setMajorTickUnit(5);
+        slider.setMajorTickUnit(4);
         slider.setMinorTickCount(1);
         slider.setBlockIncrement(2);
         slider.setMaxWidth(100);
@@ -357,6 +357,7 @@ public class Main extends Application{
             }
 
         });
+
 
 
         forward.setOnAction(e -> {

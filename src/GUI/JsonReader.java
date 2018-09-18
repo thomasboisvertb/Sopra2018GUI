@@ -136,24 +136,25 @@ public class JsonReader {
 
                 //getting the markers
                 JSONArray markersArray = (JSONArray) fieldR.get("markers");
+                if (markersArray != null) {
+                    for (Object markers : markersArray) {
+                        JSONObject marker = (JSONObject) markers;
 
-                for (Object markers : markersArray) {
-                    JSONObject marker = (JSONObject) markers;
+                        //getting the marker id
+                        char id = ((String) marker.get("swarm_id")).charAt(0);
+                        //getting the marker array
+                        boolean[] values = new boolean[7];
+                        JSONArray registers = (JSONArray) marker.get("values");
+                        for (int i = 0; i < registers.size(); i++) {
+                            boolean value = ("true".equals(registers.get(i).toString()));
+                            values[i] = value;
+                        }
 
-                    //getting the marker id
-                    char id = ((String) marker.get("swarm_id")).charAt(0);
-                    //getting the marker array
-                    boolean[] values = new boolean[7];
-                    JSONArray registers = (JSONArray) marker.get("values");
-                    for (int i = 0; i<registers.size();i++) {
-                        boolean value = ("true".equals(registers.get(i).toString()));
-                        values[i] = value;
+                        Marker finalMarker = new Marker(id, values);
+
+                        fieldI.addMarkers(finalMarker);
+
                     }
-
-                    Marker finalMarker = new Marker(id,values);
-
-                    fieldI.addMarkers(finalMarker);
-
                 }
 
                 if (fieldR.get("food") != null) {
