@@ -190,7 +190,11 @@ public class Main extends Application{
 
         autoplay = new Button("Play "+autoplayValue+"x");
         autoplay.setOnAction(e-> {
-            if (presentRound < maxRound) {
+            if (presentRound < maxRound-autoplayValue) {
+                if (this.timeline != null){
+                    timeline.stop();
+                    timeline = null;
+                }
                 timeline = new Timeline(new KeyFrame(
                         Duration.millis(450),
                         ae -> {
